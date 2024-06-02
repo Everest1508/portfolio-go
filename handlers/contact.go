@@ -6,6 +6,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func init(){
+    db.DBConnect()
+}
+
+
 // GetContacts retrieves all contacts
 func GetContacts(c *gin.Context) {
     var contacts []models.Contact

@@ -6,6 +6,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func init(){
+    db.DBConnect()
+}
+
+
 // GetProjects retrieves all projects
 func GetProjects(c *gin.Context) {
     var projects []models.Project
@@ -13,7 +18,7 @@ func GetProjects(c *gin.Context) {
     c.JSON(200, projects)
 }
 
-// GetProject retrieves a single project by ID
+
 func GetProject(c *gin.Context) {
     id := c.Param("id")
     var project models.Project

@@ -6,13 +6,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func init(){
+    db.DBConnect()
+}
+
+
 func GetSkills(c *gin.Context) {
     var skills []models.Skill
     db.DB.Find(&skills)
     c.JSON(200, skills)
 }
 
-// GetSkill retrieves a single skill by ID
 func GetSkill(c *gin.Context) {
     id := c.Param("id")
     var skill models.Skill
@@ -26,11 +30,12 @@ func GetSkill(c *gin.Context) {
 // CreateSkill creates a new skill
 func CreateSkill(c *gin.Context) {
     var skill models.Skill
-    if err := c.ShouldBindJSON(&skill); err != nil {
+    if err := c.BindJSON(&skill); err != nil {
         c.JSON(400, gin.H{"error": err.Error()})
         return
     }
-    if err := db.DB.Create(&skill).Error; err != nil {
+    err := db.DB.Create(&skill).Error
+    if err != nil {
         c.JSON(500, gin.H{"error": "Failed to create skill"})
         return
     }

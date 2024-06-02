@@ -6,6 +6,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func init(){
+    db.DBConnect()
+}
+
+
 // GetBios retrieves all bios
 func GetBios(c *gin.Context) {
     var bios []models.Bio
